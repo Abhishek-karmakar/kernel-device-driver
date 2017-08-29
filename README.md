@@ -1,3 +1,5 @@
+Following this tutorial : https://www.youtube.com/watch?v=E_xrzGlHbac&list=PL2GL6HVUQAuksbptmKC7X4zruZlIl59is&index=6
+
 Write a simple program
 	ex01_simple_module.c
 load the program
