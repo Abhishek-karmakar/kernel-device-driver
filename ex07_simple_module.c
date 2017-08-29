@@ -11,21 +11,25 @@
 */
 ssize_t ex07_read(struct file *pfile, char __user *buffer, size_t length, loff_t *offset)
 {
-
+	printk(KERN_ALERT "Inside the %s function\n",__FUNCTION__);
+	return 0;
 }
 
 ssize_t ex07_write(struct file *pfile, const char __user *buffer, size_t length, loff_t *offset)
 {
-
+	printk(KERN_ALERT "Inside the %s function\n",__FUNCTION__);
+	return length;
 }
 int ex07_open(struct inode *pinode, struct file *pfile)
 {
-
+	printk(KERN_ALERT "Inside the %s function\n",__FUNCTION__);
+	return 0;
 }
 
 int ex07_close(struct inode *pinode, struct file *pfile)
 {
-
+	printk(KERN_ALERT "Inside the %s function\n",__FUNCTION__);
+	return 0;
 }
 
 /*To hold the file operations performed on the device*/
@@ -36,14 +40,15 @@ struct file_operations ex07_file_operations = {
 	.write   = ex07_write,
 	.release = ex07_close,
 };
+
 int ex07_simple_module_init(void)
 {
 	printk(KERN_ALERT "Inside the %s function\n",__FUNCTION__);
 
 	/* Register the driver and indicate that we are registering the driver*/
-	register_chardev(240/*Major number*/,
-			"Simple chat Dev"/*Name of the driver*/,
-			ex07_fie_operations/*file operations*/)	
+	register_chrdev(240/*Major number*/,
+			"Simple chat Dev" /*Name of the driver*/,
+			&ex07_file_operations/*file operations*/);	
 	return 0;
 }
 
@@ -52,7 +57,7 @@ void ex07_simple_module_exit(void)
 	printk(KERN_ALERT "Inside the %s function\n", __FUNCTION__);
 
 	/*unregster the character device driver*/
-	unregister_chrdev(240,"Simple chat Dev")
+	unregister_chrdev(240,"Simple chat Dev");
 }
 
 module_init(ex07_simple_module_init);
